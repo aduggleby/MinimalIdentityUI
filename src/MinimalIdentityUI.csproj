@@ -25,6 +25,11 @@
 	</ItemGroup>
 	
 	<ItemGroup>
+	  <Watch Remove="Pages\Shared\_Layout - Copy.cshtml.css" />
+	  <Watch Remove="Pages\Shared\_LayoutBase.cshtml" />
+	</ItemGroup>
+	
+	<ItemGroup>
 	  <Folder Include="wwwroot\dist\" />
 	</ItemGroup>
 	

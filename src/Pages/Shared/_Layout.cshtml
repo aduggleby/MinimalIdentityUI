@@ -1,74 +1,86 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - MinimalIdentityUI</title>
-    <link rel="stylesheet" href="~/dist/all.css" asp-append-version="true" />
-</head>
-<body class="m-0 p-0 min-h-screen " x-data="{ sidebarOpen: false }">
-    <nav class="fixed top-0 left-0 z-20 h-full overflow-x-hidden overflow-y-auto transition origin-left transform bg-gray-50 border-r w-60 md:translate-x-0"
-             :class="{ '-translate-x-full' : !sidebarOpen, 'translate-x-0' : sidebarOpen }"
-            @@click.away="sidebarOpen = false">
-            <nav class="text-sm font-medium text-gray-600" aria-label="Main Navigation">
+﻿@{
+    Layout = "./_LayoutBase.cshtml";
 
-                <a class="h-20 flex items-center px-4 py-5 text-lg font-bold" asp-area="" asp-page="/Index">MinimalIdentityUI</a>
+    var navItemClasses = "block px-6 py-2 font-medium text-base text-gray-500 hover:bg-gray-100 hover:text-gray-700";
+}
+<div class="m-0 p-0 min-h-screen " x-data="{ sidebarOpen: false }">
+    <nav class="fixed top-0 left-0 z-20 h-full overflow-x-hidden overflow-y-auto transition origin-left transform md:translate-x-0 w-64 py-10 border-r bg-white shadow-lg"
+         :class="{ '-translate-x-full' : !sidebarOpen, 'translate-x-0' : sidebarOpen }"
+         @@click.away="sidebarOpen = false">
+        <div class="px-6 pb-6">
+            <a asp-area="null" asp-page="Index"
+               class="flex-none text-xl font-semibold" aria-label="Project">MinimalIdentityUI</a>
+        </div>
+        <nav class="w-full flex flex-col flex-wrap" aria-label="Main Navigation">
+            <ul class="space-y-1.5">
 
-                <a class="flex items-center px-4 py-3 transition cursor-pointer group hover:bg-gray-200 hover:text-gray-900"
-                   asp-area="" asp-page="/Index">
-                    <span>Home</span>
-                </a>
+                <li>
+                    <a class="@navItemClasses"
+                       asp-area="" asp-page="/Index">
+                        <span>Home</span>
+                    </a>
+                </li>
 
-                <a class="flex items-center px-4 py-3 transition cursor-pointer group hover:bg-gray-200 hover:text-gray-900"
-                   asp-area="" asp-page="/Privacy">
-                    <span>Privacy</span>
-                </a>
+                <li>
+
+                    <a class="@navItemClasses"
+                       asp-area="" asp-page="/Privacy">
+                        <span>Privacy</span>
+                    </a>
+                </li>
 
                 <partial name="_LoginPartial" />
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-              
-            </nav>
         </nav>
+    </nav>
+
+
     <div class="ml-0 transition md:ml-60 flex flex-col min-h-screen">
-        <header class="flex items-center justify-between w-full px-8 bg-white border-b h-20">
-            <button class="block btn btn-light md:hidden"
-                    @@click.stop="sidebarOpen = true">
-                <span class="sr-only">Menu</span>
-                <svg class="w-4 h-4"
-                     xmlns="http://www.w3.org/2000/svg"
-                     viewBox="0 0 20 20"
-                     fill="currentColor">
-                    <path fill-rule="evenodd"
-                          d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                          clip-rule="evenodd" />
-                </svg>
-            </button>
-            <div class="text-xl">
-                @ViewData["Title"]
+        @{
+            var contentPadding = "px-8 sm:px-6 md:px-16";
+        }
+        <!-- Content -->
+
+        <!-- Page Heading -->
+        <header class="w-full py-10 @contentPadding flex flex-row justify-between items-center">
+            <div>
+                <p class="mb-2 text-sm font-semibold text-blue-600">@ViewData["Section"]</p>
+                <h1 class="block text-xl font-bold text-gray-800 sm:text-3xl dark:text-white">@ViewData["Title"]</h1>
+                <p class="mt-2 text-lg text-gray-800 dark:text-gray-400">@ViewData["Description"]</p>
+            </div>
+            <div>
+                <button class=" md:hidden"
+                        @@click.stop="sidebarOpen = true">
+                    <span class="sr-only">Menu</span>
+                    <svg class="w-6 h-6"
+                         xmlns="http://www.w3.org/2000/svg"
+                         viewBox="0 0 20 20"
+                         fill="currentColor">
+                        <path fill-rule="evenodd"
+                              d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                              clip-rule="evenodd" />
+                    </svg>
+                </button>
             </div>
         </header>
-        <div class="p-8 flex-1">
-                @RenderBody()
+        <!-- End Page Heading -->
+
+        <div class="@contentPadding flex-1">
+            @RenderBody()
         </div>
-        <footer class="flex items-center justify-between w-full px-8 pb-4 text-sm">
+        <footer class="py-10 @contentPadding flex items-center justify-between w-full text-sm">
             <div>
                 &copy; 2024 - MinimalIdentityUI - <a asp-area="" asp-page="/Privacy" class="underline">Privacy</a>
             </div>
         </footer>
+        <!-- End Content -->
+
     </div>
     <div class="fixed inset-0 z-10 w-screen h-screen bg-black bg-opacity-25 md:hidden"
          x-show.transition="sidebarOpen"
          x-cloak></div>
+</div>
 
-  
-
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
+@section Scripts {
     @await RenderSectionAsync("Scripts", required: false)
-</body>
-</html>
+}
