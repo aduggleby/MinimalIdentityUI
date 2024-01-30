@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "tailwind": "npx tailwind ./wwwroot/css/site.css -o ./wwwroot/dist/all.css --watch",
-    "tailwind:build": "npx tailwind ./wwwroot/css/site.css -o ./wwwroot/dist/all.css --minify"
+    "tailwind": "npx tailwind -i ./wwwroot/css/site.css -o ./wwwroot/dist/all.css --watch",
+    "tailwind:build": "npx tailwind -i ./wwwroot/css/site.css -o ./wwwroot/dist/all.css --minify"
   },
   "keywords": [],
   "author": "",
