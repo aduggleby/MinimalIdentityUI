@@ -21,7 +21,7 @@
 	
 	<ItemGroup>
 		<!-- extends watching group to include *.cshtml and *.razor files -->
-		<Watch Include="**\*.cshtml;*.razor;*.js;*.css" Exclude="**\obj\**\*;bin\**\*" />
+		<Watch Include="**\*.cshtml;**\*.razor;**\*.js;**\*.css" Exclude="**\obj\**\*;bin\**\*" />
 	</ItemGroup>
 	
 	<ItemGroup>

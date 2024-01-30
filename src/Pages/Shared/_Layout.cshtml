@@ -6,40 +6,65 @@
     <title>@ViewData["Title"] - MinimalIdentityUI</title>
     <link rel="stylesheet" href="~/dist/all.css" asp-append-version="true" />
 </head>
-<body class="bg-fuchsia-600">
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">MinimalIdentityUI</a>
+<body class="m-0 p-0 min-h-screen " x-data="{ sidebarOpen: false }">
+    <nav class="fixed top-0 left-0 z-20 h-full overflow-x-hidden overflow-y-auto transition origin-left transform bg-gray-50 border-r w-60 md:translate-x-0"
+             :class="{ '-translate-x-full' : !sidebarOpen, 'translate-x-0' : sidebarOpen }"
+            @@click.away="sidebarOpen = false">
+            <nav class="text-sm font-medium text-gray-600" aria-label="Main Navigation">
+
+                <a class="h-20 flex items-center px-4 py-5 text-lg font-bold" asp-area="" asp-page="/Index">MinimalIdentityUI</a>
+
+                <a class="flex items-center px-4 py-3 transition cursor-pointer group hover:bg-gray-200 hover:text-gray-900"
+                   asp-area="" asp-page="/Index">
+                    <span>Home</span>
+                </a>
+
+                <a class="flex items-center px-4 py-3 transition cursor-pointer group hover:bg-gray-200 hover:text-gray-900"
+                   asp-area="" asp-page="/Privacy">
+                    <span>Privacy</span>
+                </a>
+
+                <partial name="_LoginPartial" />
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
-                </div>
-            </div>
+              
+            </nav>
         </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - MinimalIdentityUI - <a asp-area="" asp-page="/Privacy">Privacy</a>
+    <div class="ml-0 transition md:ml-60 flex flex-col min-h-screen">
+        <header class="flex items-center justify-between w-full px-8 bg-white border-b h-20">
+            <button class="block btn btn-light md:hidden"
+                    @@click.stop="sidebarOpen = true">
+                <span class="sr-only">Menu</span>
+                <svg class="w-4 h-4"
+                     xmlns="http://www.w3.org/2000/svg"
+                     viewBox="0 0 20 20"
+                     fill="currentColor">
+                    <path fill-rule="evenodd"
+                          d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                          clip-rule="evenodd" />
+                </svg>
+            </button>
+            <div class="text-xl">
+                @ViewData["Title"]
+            </div>
+        </header>
+        <div class="p-8 flex-1">
+                @RenderBody()
         </div>
-    </footer>
+        <footer class="flex items-center justify-between w-full px-8 pb-4 text-sm">
+            <div>
+                &copy; 2024 - MinimalIdentityUI - <a asp-area="" asp-page="/Privacy" class="underline">Privacy</a>
+            </div>
+        </footer>
+    </div>
+    <div class="fixed inset-0 z-10 w-screen h-screen bg-black bg-opacity-25 md:hidden"
+         x-show.transition="sidebarOpen"
+         x-cloak></div>
+
+  
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
