@@ -8,18 +8,10 @@ A drop-in replacement for the scaffolded ASP.NET Identity UI based on [Preline](
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
 * [Screenshots](#screenshots)
-  + [Clean form style](#clean-form-style)
-  + [Account management has a secondary top navigation](#account-management-has-a-secondary-top-navigation)
-  + [All Identity UIs have been adapted even the lesser used ones](#all-identity-uis-have-been-adapted-even-the-lesser-used-ones)
-  + [Basic App Layout with Side Navbar, Page Title and Footer.](#basic-app-layout-with-side-navbar-page-title-and-footer)
 * [Dependencies](#dependencies)
 * [Project Goals](#project-goals)
-* [Usage in Greenfield projects](#usage-in-greenfield-projects)
-  + [1. Setup a default ASP.NET Web App project with the default scaffolded Identity UI](#1-setup-a-default-aspnet-web-app-project-with-the-default-scaffolded-identity-ui)
-  + [2. Install TailwindCSS](#2-install-tailwindcss)
-  + [3. Copy the MinimalIdentityUI files](#3-copy-the-minimalidentityui-files)
-  + [Expected Changes when you add the files](#expected-changes-when-you-add-the-files)
-* [Brownfield projects](#brownfield-projects)
+* [Usage in Greenfield (new) projects](#usage-in-greenfield-projects)
+* [Usage in Brownfield projects](#brownfield-projects)
 * [Contributing to MinimalIdentityUI](#contributing-to-minimalidentityui)
 * [Build for Production](#build-for-production)
 
@@ -28,20 +20,16 @@ A drop-in replacement for the scaffolded ASP.NET Identity UI based on [Preline](
 <!-- TOC --><a name="screenshots"></a>
 ## Screenshots
 
-<!-- TOC --><a name="clean-form-style"></a>
-### Clean form style
+**Clean form style**
 ![](images/login.png)
 
-<!-- TOC --><a name="account-management-has-a-secondary-top-navigation"></a>
-### Account management has a secondary top navigation
+**Account management has a secondary top navigation**
 ![](images/manage.png)
 
-<!-- TOC --><a name="all-identity-uis-have-been-adapted-even-the-lesser-used-ones"></a>
-### All Identity UIs have been adapted even the lesser used ones
+**All Identity UIs have been adapted even the lesser used ones**
 ![](images/2fa.png)
 
-<!-- TOC --><a name="basic-app-layout-with-side-navbar-page-title-and-footer"></a>
-### Basic App Layout with Side Navbar, Page Title and Footer.
+**Basic App Layout with Side Navbar, Page Title and Footer.**
 ![](images/layout.png)
 
 <!-- TOC --><a name="dependencies"></a>
@@ -164,7 +152,7 @@ In the Pages/Shared Layout:
 - These create a basic application layout with a navigation on the left.
 
 <!-- TOC --><a name="brownfield-projects"></a>
-## Brownfield projects
+## Usage in Brownfield projects
 
 For existing projects (assuming you are already using TailwindCSS) it's recommended to copy only the `.cshtml` files and the `Classes.cs` file from the Identity Area. This will have the least impact on your existing code.
 
