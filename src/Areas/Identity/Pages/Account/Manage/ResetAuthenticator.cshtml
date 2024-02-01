@@ -5,20 +5,29 @@
     ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
 }
 
-<partial name="_StatusMessage" for="StatusMessage" />
-<h3>@ViewData["Title"]</h3>
-<div class="alert alert-warning" role="alert">
-    <p>
-        <span class="glyphicon glyphicon-warning-sign"></span>
-        <strong>If you reset your authenticator key your authenticator app will not work until you reconfigure it.</strong>
-    </p>
-    <p>
-        This process disables 2FA until you verify your authenticator app.
-        If you do not complete your authenticator app configuration you may lose access to your account.
-    </p>
-</div>
-<div>
-    <form id="reset-authenticator-form" method="post">
-        <button id="reset-authenticator-button" class="btn btn-danger" type="submit">Reset authenticator key</button>
-    </form>
+<div class="max-w-md">
+
+    <partial name="_StatusMessage" for="StatusMessage" />
+    <div class="grid gap-y-4">
+
+        <div class="bg-yellow-50 border border-yellow-200 text-sm text-yellow-800 rounded-lg p-4 dark:bg-yellow-800/10 dark:border-yellow-900 dark:text-yellow-500" role="alert">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="flex-shrink-0 h-4 w-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" /><path d="M12 9v4" /><path d="M12 17h.01" /></svg>
+                </div>
+                <div class="ms-4">
+                    <h3 class="text-sm font-semibold">
+                        If you reset your authenticator key your authenticator app will not work until you reconfigure it.
+                    </h3>
+                    <div class="mt-1 text-sm text-yellow-700">
+                        This process disables 2FA until you verify your authenticator app.
+                        If you do not complete your authenticator app configuration you may lose access to your account.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form method="post">
+            <button class="@Classes.LargePrimaryButtonFullWidth" type="submit">Reset authenticator key</button>
+        </form>
+    </div>
 </div>

@@ -4,35 +4,63 @@
     ViewData["Title"] = "Two-factor authentication";
 }
 
-<h1>@ViewData["Title"]</h1>
-<hr />
-<p>Your login is protected with an authenticator app. Enter your authenticator code below.</p>
-<div class="row">
-    <div class="col-md-4">
-        <form method="post" asp-route-returnUrl="@Model.ReturnUrl">
-            <input asp-for="RememberMe" type="hidden" />
-            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.TwoFactorCode" class="form-control" autocomplete="off" />
-                <label asp-for="Input.TwoFactorCode" class="form-label"></label>
-                <span asp-validation-for="Input.TwoFactorCode" class="text-danger"></span>
-            </div>
-            <div class="checkbox mb-3">
-                <label asp-for="Input.RememberMachine" class="form-label">
-                    <input asp-for="Input.RememberMachine" />
-                    @Html.DisplayNameFor(m => m.Input.RememberMachine)
-                </label>
-            </div>
-            <div>
-                <button type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
-            </div>
-        </form>
+<div class="mt-7 bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
+    <div class="p-4 sm:p-7">
+        <div class="text-center">
+            <h1 class="block text-2xl font-bold text-gray-800 dark:text-white">@ViewData["Title"]</h1>
+            <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                Your login is protected with an authenticator app. Enter your authenticator code below.
+            </p>
+        </div>
+
+        <div class="mt-5">
+
+
+            <!-- Form -->
+            <form method="post" asp-route-returnUrl="@Model.ReturnUrl">
+                <input asp-for="RememberMe" type="hidden" />
+                <div asp-validation-summary="ModelOnly" class="@Classes.ValidationSummary" role="alert"></div>
+
+                <div class="grid gap-y-4">
+                    <!-- Form Group -->
+                    <div>
+                        <div class="flex justify-between items-center">
+                            <label asp-for="Input.TwoFactorCode"
+                                   class="@Classes.TextInputLabel">Authenticator code</label>
+                            <a asp-page="./LoginWithRecoveryCode"
+                               class="@Classes.TextInputLabelSideAction">Log in with a recovery code?</a>
+                        </div>
+                        <div class="relative">
+                            <input asp-for="Input.TwoFactorCode"
+                                   autocomplete="username" aria-required="true"
+                                   class="@Classes.TextInputField"
+                                   required>
+
+                        </div>
+                        <span asp-validation-for="Input.TwoFactorCode" class="@Classes.ErrorMessage"></span>
+                    </div>
+                    <!-- End Form Group -->
+                    <!-- Checkbox -->
+                    <div class="flex items-center">
+                        <div class="flex">
+                            <input asp-for="Input.RememberMachine" type="checkbox" class="shrink-0 mt-0.5 border-gray-200 rounded text-sky-600 pointer-events-none focus:ring-sky-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-sky-500 dark:checked:border-sky-500 dark:focus:ring-offset-gray-800">
+                        </div>
+                        <div class="ms-3">
+                            <label asp-for="Input.RememberMachine" class="text-sm dark:text-white">@Html.DisplayNameFor(m => m.Input.RememberMachine)</label>
+                        </div>
+                    </div>
+                    <!-- End Checkbox -->
+
+                    <button type="submit"
+                            class="@Classes.LargePrimaryButtonFullWidth">
+                        Log in
+                    </button>
+                </div>
+            </form>
+            <!-- End Form -->
+        </div>
     </div>
 </div>
-<p>
-    Don't have access to your authenticator device? You can
-    <a id="recovery-code-login" asp-page="./LoginWithRecoveryCode" asp-route-returnUrl="@Model.ReturnUrl">log in with a recovery code</a>.
-</p>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

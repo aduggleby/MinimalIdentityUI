@@ -4,23 +4,51 @@
     ViewData["Title"] = "Recovery code verification";
 }
 
-<h1>@ViewData["Title"]</h1>
-<hr />
-<p>
-    You have requested to log in with a recovery code. This login will not be remembered until you provide
-    an authenticator app code at log in or disable 2FA and log in again.
-</p>
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.RecoveryCode" class="form-control" autocomplete="off" placeholder="RecoveryCode" />
-                <label asp-for="Input.RecoveryCode" class="form-label"></label>
-                <span asp-validation-for="Input.RecoveryCode" class="text-danger"></span>
-            </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
-        </form>
+<div class="mt-7 bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
+    <div class="p-4 sm:p-7">
+        <div class="text-center">
+            <h1 class="block text-2xl font-bold text-gray-800 dark:text-white">@ViewData["Title"]</h1>
+            <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                You have requested to log in with a recovery code. This login will not be remembered until you provide
+                an authenticator app code at log in or disable 2FA and log in again.
+            </p>
+        </div>
+
+        <div class="mt-5">
+
+
+            <!-- Form -->
+            <form method="post" asp-route-returnUrl="@Model.ReturnUrl">
+                <div asp-validation-summary="ModelOnly" class="@Classes.ValidationSummary" role="alert"></div>
+
+                <div class="grid gap-y-4">
+                    <!-- Form Group -->
+                    <div>
+                        <div class="flex justify-between items-center">
+                            <label asp-for="Input.RecoveryCode"
+                                   class="@Classes.TextInputLabel">Recovery Code</label>
+                            <a asp-page="./LoginWithRecoveryCode"
+                               class="@Classes.TextInputLabelSideAction">Log in with a recovery code?</a>
+                        </div>
+                        <div class="relative">
+                            <input asp-for="Input.RecoveryCode"
+                                   autocomplete="username" aria-required="true"
+                                   class="@Classes.TextInputField"
+                                   required>
+
+                        </div>
+                        <span asp-validation-for="Input.RecoveryCode" class="@Classes.ErrorMessage"></span>
+                    </div>
+                    <!-- End Form Group -->
+
+                    <button type="submit"
+                            class="@Classes.LargePrimaryButtonFullWidth">
+                        Log in
+                    </button>
+                </div>
+            </form>
+            <!-- End Form -->
+        </div>
     </div>
 </div>
 

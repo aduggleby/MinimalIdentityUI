@@ -1,7 +1,7 @@
 module.exports = {
     content: [
-        "./Areas/**/*.{cshtml,html,js}",
-        "./Pages/**/*.{cshtml,html,js}",
+        "./Areas/**/*.{cs,cshtml,html,js}",
+        "./Pages/**/*.{cs,cshtml,html,js}",
     ],
     theme: {
         extend: {},

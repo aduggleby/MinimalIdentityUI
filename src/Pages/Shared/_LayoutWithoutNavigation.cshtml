@@ -1,0 +1,22 @@
+﻿@{
+    Layout = "./_LayoutBase.cshtml";
+}
+
+<div class="min-h-screen dark:bg-slate-900 bg-gray-100 flex h-full items-center">
+    <main class="w-full max-w-md mx-auto p-6">
+        @RenderBody()
+
+        <div class="py-6 flex flex-row">
+            <div class="flex-1"></div>
+            <div class="flex-shrink">
+                <partial name="_FooterPartial" />
+            </div>
+            <div class="flex-1"></div>
+        </div>
+    </main>
+</div>
+
+@section Scripts {
+    @await RenderSectionAsync("Scripts", required: false)
+}
+

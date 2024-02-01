@@ -5,21 +5,38 @@
     ViewData["ActivePage"] = "TwoFactorAuthentication";
 }
 
-<partial name="_StatusMessage" for="StatusMessage" />
-<h3>@ViewData["Title"]</h3>
-<div class="alert alert-warning" role="alert">
-    <p>
-        <strong>Put these codes in a safe place.</strong>
-    </p>
-    <p>
-        If you lose your device and don't have the recovery codes you will lose access to your account.
-    </p>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        @for (var row = 0; row < Model.RecoveryCodes.Length; row += 2)
-        {
-            <code class="recovery-code">@Model.RecoveryCodes[row]</code><text>&nbsp;</text><code class="recovery-code">@Model.RecoveryCodes[row + 1]</code><br />
-        }
+<div class="max-w-md">
+
+    <partial name="_StatusMessage" for="StatusMessage" />
+    <div class="grid gap-y-4">
+
+        <div class="bg-yellow-50 border border-yellow-200 text-sm text-yellow-800 rounded-lg p-4 dark:bg-yellow-800/10 dark:border-yellow-900 dark:text-yellow-500" role="alert">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="flex-shrink-0 h-4 w-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" /><path d="M12 9v4" /><path d="M12 17h.01" /></svg>
+                </div>
+                <div class="ms-4">
+                    <h3 class="text-sm font-semibold">
+                        Put these codes in a safe place.
+                    </h3>
+                    <div class="mt-1 text-sm text-yellow-700">
+                        If you lose your device and don't have the recovery codes you will lose access to your account.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-gray-50 border border-gray-200 text-sm text-gray-600 rounded-lg p-4 dark:bg-white/[.05] dark:border-white/10 dark:text-gray-400" role="alert">
+
+            <div class="grid grid-cols-2 font-mono ">
+                @for (var row = 0; row < Model.RecoveryCodes.Length; row += 2)
+                {
+                    <code class="text-center text-xl">@Model.RecoveryCodes[row]</code>
+                    <code class="text-center text-xl">@Model.RecoveryCodes[row + 1]</code>
+                }
+            </div>
+        </div>
+
     </div>
+    
 </div>

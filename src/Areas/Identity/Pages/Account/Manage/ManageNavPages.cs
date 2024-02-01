@@ -117,7 +117,7 @@ namespace  MinimalIdentityUI.Areas.Identity.Pages.Account.Manage
         {
             var activePage = viewContext.ViewData["ActivePage"] as string
                 ?? System.IO.Path.GetFileNameWithoutExtension(viewContext.ActionDescriptor.DisplayName);
-            return string.Equals(activePage, page, StringComparison.OrdinalIgnoreCase) ? "active" : null;
+            return string.Equals(activePage, page, StringComparison.OrdinalIgnoreCase) ? "font-medium text-blue-500 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" : null;
         }
     }
 }

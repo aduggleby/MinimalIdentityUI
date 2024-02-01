@@ -40,11 +40,10 @@
             var contentPadding = "px-8 sm:px-6 md:px-16";
         }
         <!-- Content -->
-
         <!-- Page Heading -->
         <header class="w-full py-10 @contentPadding flex flex-row justify-between items-center">
             <div>
-                <p class="mb-2 text-sm font-semibold text-blue-600">@ViewData["Section"]</p>
+                <p class="mb-2 text-sm font-semibold text-sky-600">@ViewData["Section"]</p>
                 <h1 class="block text-xl font-bold text-gray-800 sm:text-3xl dark:text-white">@ViewData["Title"]</h1>
                 <p class="mt-2 text-lg text-gray-800 dark:text-gray-400">@ViewData["Description"]</p>
             </div>
@@ -62,17 +61,22 @@
                     </svg>
                 </button>
             </div>
+
+            <div class="flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5">
+                @await RenderSectionAsync("TopNav", required: false)
+            </div>
+
         </header>
         <!-- End Page Heading -->
 
         <div class="@contentPadding flex-1">
             @RenderBody()
         </div>
-        <footer class="py-10 @contentPadding flex items-center justify-between w-full text-sm">
-            <div>
-                &copy; 2024 - MinimalIdentityUI - <a asp-area="" asp-page="/Privacy" class="underline">Privacy</a>
-            </div>
-        </footer>
+
+        <div class="py-10 @contentPadding">
+            <partial name="_FooterPartial" />
+        </div>
+
         <!-- End Content -->
 
     </div>

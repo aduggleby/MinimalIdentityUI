@@ -1,28 +1,27 @@
 ﻿@{
-    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout !=  null)
-    {
-        Layout = parentLayout.ToString();
-    }
-    else
-    {
-        Layout = "/Areas/Identity/Pages/_Layout.cshtml";
-    }
+    /* The standard scaffold will use the same layout as the login/register pages but in
+       this design they are full screen without nav (i.e. not authenticated) where the
+       management pages should show the standard app nav (i.e. are authenticated).
+       So we override with the Shared App _Layout directly
+
+       fyi ParentLayout is the Layout value from _ViewStart.cshtml
+    */
+    // if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout != null)
+    // {
+    //     Layout = parentLayout.ToString();
+    // }
+    // else
+    // {
+    Layout = "/Pages/Shared/_Layout.cshtml";
+    //}
 }
 
-<h1>Manage your account</h1>
+@RenderBody()
 
-<div>
-    <h2>Change your account settings</h2>
-    <hr />
-    <div class="row">
-        <div class="col-md-3">
-            <partial name="_ManageNav" />
-        </div>
-        <div class="col-md-9">
-            @RenderBody()
-        </div>
-    </div>
-</div>
+@section TopNav {
+    <partial name="_ManageNav" />
+}
+
 
 @section Scripts {
     @RenderSection("Scripts", required: false)

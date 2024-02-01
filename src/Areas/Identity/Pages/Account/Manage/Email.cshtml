@@ -5,39 +5,83 @@
     ViewData["ActivePage"] = ManageNavPages.Email;
 }
 
-<h3>@ViewData["Title"]</h3>
-<partial name="_StatusMessage" for="StatusMessage" />
-<div class="row">
-    <div class="col-md-6">
-        <form id="email-form" method="post">
-            <div asp-validation-summary="All" class="text-danger" role="alert"></div>
-            @if (Model.IsEmailConfirmed)
-            {
-                <div class="form-floating mb-3 input-group">
-                    <input asp-for="Email" class="form-control" placeholder="Please enter your email." disabled />
-                        <div class="input-group-append">
-                            <span class="h-100 input-group-text text-success font-weight-bold">✓</span>
-                        </div>
-                    <label asp-for="Email" class="form-label"></label>
+
+<form id="email-form" method="post" class="max-w-md">
+    <partial name="_StatusMessage" for="StatusMessage" />
+
+    <div asp-validation-summary="ModelOnly" class="@Classes.ValidationSummary" role="alert"></div>
+
+    <div class="grid gap-y-4">
+        @if (Model.IsEmailConfirmed)
+        {
+            <div>
+                <div class="flex justify-between items-center">
+                    <label asp-for="Email"
+                           class="@Classes.TextInputLabel">
+                        @Html.DisplayNameFor(m => m.Email)
+
+
+                    </label>
                 </div>
-            }
-            else
-            {
-                <div class="form-floating mb-3">
-                    <input asp-for="Email" class="form-control" placeholder="Please enter your email." disabled />
-                    <label asp-for="Email" class="form-label"></label>
-                    <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link">Send verification email</button>
+                <div class="relative">
+                    <input asp-for="Email" type="text"
+                           class="@Classes.TextInputField"
+                           disabled>
+
                 </div>
-            }
-            <div class="form-floating mb-3">
-                <input asp-for="Input.NewEmail" class="form-control" autocomplete="email" aria-required="true" placeholder="Please enter new email." />
-                <label asp-for="Input.NewEmail" class="form-label"></label>
-                <span asp-validation-for="Input.NewEmail" class="text-danger"></span>
+
+                <div class="text-sm mt-3">
+                    <span class="text-green-600 font-bold"> ✓ Email address confirmed</span>
+                </div>
             </div>
-            <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="w-100 btn btn-lg btn-primary">Change email</button>
-        </form>
+
+        }
+        else
+        {
+            <!-- Form Group -->
+            <div>
+                <div class="flex justify-between items-center">
+                    <label asp-for="Email"
+                           class="@Classes.TextInputLabel">@Html.DisplayNameFor(m => m.Email)</label>
+                </div>
+                <div class="relative">
+                    <input asp-for="Email" type="text"
+                           class="@Classes.TextInputField"
+                           disabled>
+
+                </div>
+                <span asp-validation-for="Email" class="@Classes.ErrorMessage"></span>
+            </div>
+            <!-- End Form Group -->
+
+            <div class="flex flex-row items-center">
+                <button type="submit" class="@Classes.LargePrimaryButton" asp-page-handler="SendVerificationEmail">Send verification email</button>
+            </div>
+        }
+
+
+        <!-- Form Group -->
+        <div class="mt-12">
+            <div class="flex justify-between items-center">
+                <label asp-for="Input.NewEmail"
+                       class="@Classes.TextInputLabel">@Html.DisplayNameFor(m => m.Input.NewEmail)</label>
+            </div>
+            <div class="relative">
+                <input asp-for="Input.NewEmail" type="text"
+                       aria-required="true"
+                       class="@Classes.TextInputField"
+                       required>
+
+            </div>
+            <span asp-validation-for="Input.NewEmail" class="@Classes.ErrorMessage"></span>
+        </div>
+        <!-- End Form Group -->
+
+        <div class="flex flex-row items-center">
+            <button type="submit" class="@Classes.LargePrimaryButton" asp-page-handler="ChangeEmail">Change Email</button>
+        </div>
     </div>
-</div>
+</form>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

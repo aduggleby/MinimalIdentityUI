@@ -5,25 +5,51 @@
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
-<h3>@ViewData["Title"]</h3>
-<partial name="_StatusMessage" for="StatusMessage" />
-<div class="row">
-    <div class="col-md-6">
-        <form id="profile-form" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div class="form-floating mb-3">
-                <input asp-for="Username" class="form-control" placeholder="Please choose your username." disabled />
-                <label asp-for="Username" class="form-label"></label>
+<form id="profile-form" method="post" class="max-w-md">
+    <partial name="_StatusMessage" for="StatusMessage" />
+
+    <div asp-validation-summary="ModelOnly" class="@Classes.ValidationSummary" role="alert"></div>
+
+    <div class="grid gap-y-4">
+        <!-- Form Group -->
+        <div>
+            <div class="flex justify-between items-center">
+                <label asp-for="Username"
+                       class="@Classes.TextInputLabel">@Html.DisplayNameFor(m => m.Username)</label>
             </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Please enter your phone number."/>
-                <label asp-for="Input.PhoneNumber" class="form-label"></label>
-                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            <div class="relative">
+                <input asp-for="Username" type="text"
+                       aria-required="true"
+                       class="@Classes.TextInputField"
+                       disabled>
+
             </div>
-            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
-        </form>
+            <span asp-validation-for="Username" class="@Classes.ErrorMessage"></span>
+        </div>
+        <!-- End Form Group -->
+        <!-- Add additional user properties using this form group block (after adding to Input model) -->
+        <!-- Form Group -->
+        <div>
+            <div class="flex justify-between items-center">
+                <label asp-for="Input.PhoneNumber"
+                       class="@Classes.TextInputLabel">@Html.DisplayNameFor(m => m.Input.PhoneNumber)</label>
+            </div>
+            <div class="relative">
+                <input asp-for="Input.PhoneNumber" type="text"
+                       aria-required="true"
+                       class="@Classes.TextInputField"
+                       required>
+
+            </div>
+            <span asp-validation-for="Input.PhoneNumber" class="@Classes.ErrorMessage"></span>
+        </div>
+        <!-- End Form Group -->
+
+        <div class="flex flex-row items-center">
+            <button type="submit" class="@Classes.LargePrimaryButton">Save</button>
+        </div>
     </div>
-</div>
+</form>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

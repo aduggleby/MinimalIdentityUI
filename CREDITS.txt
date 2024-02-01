@@ -1,4 +1,6 @@
 This project has used styles from various projects:
 
-https://github.com/praveenjuge/kutty/
 https://github.com/htmlstreamofficial/preline
+
+This project includes the qrcode.js library from:
+https://davidshimjs.github.io/qrcodejs/

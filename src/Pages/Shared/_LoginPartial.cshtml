@@ -16,9 +16,9 @@
 
         <li>
             <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
-                <button type="submit" 
-                        class="@navItemClasses">
-                    Logout
+                <button type="submit"
+                        class="w-full text-left @navItemClasses">
+                    Log out
                 </button>
             </form>
         </li>
@@ -28,14 +28,14 @@
         <li>
             <a asp-area="Identity" asp-page="/Account/Register"
                class="@navItemClasses">
-                Sign up
+                Register
             </a>
         </li>
 
         <li>
             <a asp-area="Identity" asp-page="/Account/Login"
                class="@navItemClasses">
-                Sign in
+                Log in
             </a>
         </li>
 
