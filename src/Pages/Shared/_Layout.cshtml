@@ -41,28 +41,29 @@
         }
         <!-- Content -->
         <!-- Page Heading -->
-        <header class="w-full py-10 @contentPadding flex flex-row justify-between items-center">
-            <div>
-                <p class="mb-2 text-sm font-semibold text-sky-600">@ViewData["Section"]</p>
-                <h1 class="block text-xl font-bold text-gray-800 sm:text-3xl dark:text-white">@ViewData["Title"]</h1>
-                <p class="mt-2 text-lg text-gray-800 dark:text-gray-400">@ViewData["Description"]</p>
+        <header class="w-full py-10 @contentPadding flex flex-col gap-x-6 gap-y-3 flex-wrap justify-start  lg:flex-row lg:justify-between lg:items-center">
+            <div class="flex flex-row items-center justify-between">
+                <div class="">
+                    <p class="mb-2 text-sm font-semibold text-sky-600">@ViewData["Section"]</p>
+                    <h1 class="block text-xl font-bold text-gray-800 sm:text-3xl dark:text-white">@ViewData["Title"]</h1>
+                    <p class="mt-2 text-lg text-gray-800 dark:text-gray-400">@ViewData["Description"]</p>
+                </div>
+                <div>
+                    <button class=" md:hidden"
+                            @@click.stop="sidebarOpen = true">
+                        <span class="sr-only">Menu</span>
+                        <svg class="w-6 h-6"
+                             xmlns="http://www.w3.org/2000/svg"
+                             viewBox="0 0 20 20"
+                             fill="currentColor">
+                            <path fill-rule="evenodd"
+                                  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                                  clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
             </div>
-            <div>
-                <button class=" md:hidden"
-                        @@click.stop="sidebarOpen = true">
-                    <span class="sr-only">Menu</span>
-                    <svg class="w-6 h-6"
-                         xmlns="http://www.w3.org/2000/svg"
-                         viewBox="0 0 20 20"
-                         fill="currentColor">
-                        <path fill-rule="evenodd"
-                              d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                              clip-rule="evenodd" />
-                    </svg>
-                </button>
-            </div>
-
-            <div class="flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5">
+            <div class="flex flex-1 gap-5 mt-5 flex-col sm:flex-row sm:items-center justify-start lg:justify-end lg:mt-0 ">
                 @await RenderSectionAsync("TopNav", required: false)
             </div>
 
