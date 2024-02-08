@@ -1,112 +1,125 @@
 ﻿@page
 @model RegisterModel
 @{
-    ViewData["Title"] = "Register";
+	ViewData["Title"] = "Register";
 }
 
 
 <div class="mt-7 bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
-    <div class="p-4 sm:p-7">
-        <div class="text-center">
-            <h1 class="block text-2xl font-bold text-gray-800 dark:text-white">@ViewData["Title"]</h1>
-            <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                Already have an account?
-                <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl"
-                   class="text-sky-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
-                    Log in here
-                </a>
-            </p>
-        </div>
+	<div class="p-4 sm:p-7">
+		<div class="text-center">
+			<h1 class="block text-2xl font-bold text-gray-800 dark:text-white">@ViewData["Title"]</h1>
+			<p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+				Already have an account?
+				<a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl"
+				   class="text-sky-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+					Log in here
+				</a>
+			</p>
+		</div>
 
-        <div class="mt-5">
+		<div class="mt-5">
 
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) > 0)
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins!)
-                                {
-                                    <button type="button" name="provider" value="@provider.Name"
-                                            class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
-                                        Register with @provider.DisplayName
-                                    </button>
-                                }
-                            </p>
-                        </div>
-                    </form>
+			@{
+				if ((Model.ExternalLogins?.Count ?? 0) > 0)
+				{
+					<form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+						<div>
+							<p>
+								@foreach (var provider in Model.ExternalLogins!)
+								{
+									<button type="button" name="provider" value="@provider.Name"
+											class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+										Register with @provider.DisplayName
+									</button>
+								}
+							</p>
+						</div>
+					</form>
 
-                    <div class="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-[1_1_0%] before:border-t before:border-gray-200 before:me-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6 dark:text-gray-500 dark:before:border-gray-600 dark:after:border-gray-600">Or</div>
-                }
-            }
+					<div class="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-[1_1_0%] before:border-t before:border-gray-200 before:me-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6 dark:text-gray-500 dark:before:border-gray-600 dark:after:border-gray-600">Or</div>
+				}
+			}
 
-            <!-- Form -->
-            <form method="post" asp-route-returnUrl="@Model.ReturnUrl">
-                <div asp-validation-summary="ModelOnly" class="@Classes.ValidationSummary" role="alert"></div>
-                <div class="grid gap-y-4">
-                    <!-- Form Group -->
-                    <div>
-                        <div class="flex justify-between items-center">
-                            <label asp-for="Input.Email"
-                                   class="@Classes.TextInputLabel">@Html.DisplayNameFor(m => m.Input.Email)</label>
-                        </div>
-                        <div class="relative">
-                            <input asp-for="Input.Email" type="email"
-                                   autocomplete="username" aria-required="true" placeholder="name@example.com"
-                                   class="@Classes.TextInputField"
-                                   required>
+			<!-- Form -->
+			<form method="post" asp-route-returnUrl="@Model.ReturnUrl">
+				<div asp-validation-summary="ModelOnly" class="@Classes.ValidationSummary" role="alert"></div>
+				<div class="grid gap-y-4">
+					<!-- Form Group -->
+					<div>
+						<div class="flex justify-between items-center">
+							<label asp-for="Input.Email"
+								   class="@Classes.TextInputLabel">@Html.DisplayNameFor(m => m.Input.Email)</label>
+						</div>
+						<div class="relative">
+							<input asp-for="Input.Email" type="email"
+								   autocomplete="username" aria-required="true" placeholder="name@example.com"
+								   class="@Classes.TextInputField"
+								   required>
 
-                        </div>
-                        <span asp-validation-for="Input.Email" class="@Classes.ErrorMessage"></span>
-                    </div>
-                    <!-- End Form Group -->
-                    <!-- Form Group -->
-                    <div>
-                        <div class="flex justify-between items-center">
-                            <label asp-for="Input.Password"
-                                   class="@Classes.TextInputLabel">@Html.DisplayNameFor(m => m.Input.Password)</label>
-                        </div>
-                        <div class="relative">
-                            <input asp-for="Input.Password" type="password"
-                                   autocomplete="new-password"
-                                   aria-required="true" 
-                                   class="@Classes.TextInputField"
-                                   required>
+						</div>
+						<span asp-validation-for="Input.Email" class="@Classes.ErrorMessage"></span>
+					</div>
+					<!-- End Form Group -->
+					<!-- Form Group -->
+					<div>
+						<div class="flex justify-between items-center">
+							<label asp-for="Input.Password"
+								   class="@Classes.TextInputLabel">@Html.DisplayNameFor(m => m.Input.Password)</label>
+						</div>
+						<div class="relative">
+							<input asp-for="Input.Password" type="password"
+								   autocomplete="new-password"
+								   aria-required="true"
+								   class="@Classes.TextInputField"
+								   required>
 
-                        </div>
-                        <span asp-validation-for="Input.Password" class="@Classes.ErrorMessage"></span>
-                    </div>
-                    <!-- End Form Group -->
-                    <!-- Form Group -->
-                    <div>
-                        <div class="flex justify-between items-center">
-                            <label asp-for="Input.ConfirmPassword"
-                                   class="@Classes.TextInputLabel">@Html.DisplayNameFor(m => m.Input.ConfirmPassword)</label>
-                        </div>
-                        <div class="relative">
-                            <input asp-for="Input.ConfirmPassword" type="password"
-                                   autocomplete="new-password"
-                                   aria-required="true" 
-                                   class="@Classes.TextInputField"
-                                   required>
+						</div>
+						<span asp-validation-for="Input.Password" class="@Classes.ErrorMessage"></span>
+					</div>
+					<!-- End Form Group -->
+					<!-- Form Group -->
+					<div>
+						<div class="flex justify-between items-center">
+							<label asp-for="Input.ConfirmPassword"
+								   class="@Classes.TextInputLabel">@Html.DisplayNameFor(m => m.Input.ConfirmPassword)</label>
+						</div>
+						<div class="relative">
+							<input asp-for="Input.ConfirmPassword" type="password"
+								   autocomplete="new-password"
+								   aria-required="true"
+								   class="@Classes.TextInputField"
+								   required>
 
-                        </div>
-                        <span asp-validation-for="Input.ConfirmPassword" class="@Classes.ErrorMessage"></span>
-                    </div>
-                    <!-- End Form Group -->
+						</div>
+						<span asp-validation-for="Input.ConfirmPassword" class="@Classes.ErrorMessage"></span>
+					</div>
+					<!-- End Form Group -->
+					<!-- Altcha -->
+					<div>
+						<div class="flex justify-between items-center">
+							<label asp-for="Altcha"
+								   class="@Classes.TextInputLabel">@Html.DisplayNameFor(m => m.Altcha)</label>
+						</div>
+						<div class="relative">
+							<altcha-widget challengejson="@Altcha.CreateChallengeJson()" hidelogo="true" hidefooter="true"></altcha-widget>
+							<span asp-validation-for="Altcha" class="@Classes.ErrorMessage"></span>
+						</div>
+					</div>
+					<!-- End Altcha -->
 
-                    <button type="submit"
-                            class="@Classes.LargePrimaryButtonFullWidth">
-                        Register
-                    </button>
-                </div>
-            </form>
-            <!-- End Form -->
-        </div>
-    </div>
+					<button type="submit"
+							class="@Classes.LargePrimaryButtonFullWidth">
+						Register
+					</button>
+				</div>
+			</form>
+			<!-- End Form -->
+		</div>
+	</div>
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+	<partial name="_ValidationScriptsPartial" />
+	<script async defer src="https://cdn.jsdelivr.net/gh/altcha-org/altcha@main/dist/altcha.min.js" type="module"></script>
 }

@@ -7,3 +7,19 @@
 .field-validation-valid {
     display: none !important;
 }
+
+/* Styling for Altcha to match Preline form */
+.altcha {
+    font-size: .875rem !important;
+    line-height: 1.25rem !important;
+    padding-top: .75rem !important;
+    padding-bottom: .75rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    --tw-border-opacity: 1 !important;
+    border-color: rgb(229 231 235/var(--tw-border-opacity)) !important;
+    border-width: 1px !important;
+    border-radius: .5rem !important;
+    max-width: 100% !important;
+    width: 100% !important;
+}
