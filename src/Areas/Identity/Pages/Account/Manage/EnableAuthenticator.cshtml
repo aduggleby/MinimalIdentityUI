@@ -10,7 +10,7 @@
 
     <div asp-validation-summary="ModelOnly" class="@Classes.ValidationSummary" role="alert"></div>
 
-    <div class="grid gap-y-4 prose">
+    <div class="grid gap-y-4 prose dark:prose-invert">
         <div>
             <h3>Step 1. Download an Authenticator App</h3>
             <p>
@@ -24,7 +24,7 @@
         </div>
         <div class="grid gap-y-2">
             <h3>Step 2. Create new entry</h3>
-            <p class="prose">Scan the QR Code or enter this key into your two factor authenticator app. Spaces and casing do not matter.</p>
+            <p class="prose dark:prose-invert">Scan the QR Code or enter this key into your two factor authenticator app. Spaces and casing do not matter.</p>
             <input type="text"
                    class="@Classes.TextInputField"
                    value="@Model.SharedKey" />
@@ -34,7 +34,7 @@
         <div>
             <h3>Step 3. Generate first code</h3>
 
-            <p class="prose">
+            <p class="prose dark:prose-invert">
                 Once you have scanned the QR code or input the key above, your two factor authentication app will provide you
                 with a unique code. Enter the code in the confirmation box below.
             </p>

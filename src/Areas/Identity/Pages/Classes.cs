@@ -11,7 +11,9 @@
         public const string TextInputLabel = "block text-sm mb-2 dark:text-white";
         public const string TextInputLabelSideAction = "text-sm mb-2 text-sky-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600";
         public const string TextInputField = "py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-sky-500 focus:ring-sky-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600";
-        public const string ValidationSummary = "py-3 px-4 mb-6 border border-red-600 bg-red-50 rounded-lg " + ErrorMessage;
-        public const string ErrorMessage = "text-sm text-red-600 mt-2";
+        public const string ValidationSummary = "py-3 px-4 mb-6 border border-red-600 bg-red-50 dark:border-red-700 dark:bg-red-900 rounded-lg " + ErrorMessage;
+        public const string ErrorMessage = "text-sm text-red-600 dark:text-red-200 mt-2";
+
+        public const string Box = "mt-7 bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700";
     }
 }
