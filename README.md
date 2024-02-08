@@ -252,3 +252,4 @@ To use Altcha in an ASP.Net project:
 - Add the widget web component to your form ([Example](https://github.com/aduggleby/MinimalIdentityUI/blob/altcha/src/Areas/Identity/Pages/Account/Register.cshtml#L105))
 - Add and bind a Altcha string parameter in the code-behind ([Example](https://github.com/aduggleby/MinimalIdentityUI/blob/altcha/src/Areas/Identity/Pages/Account/Register.cshtml.cs#L55))
 - Use the [Altcha class](https://github.com/aduggleby/MinimalIdentityUI/blob/altcha/src/Areas/Identity/Pages/Account/Altcha.cs) to generate and verify the challenge ([Example](https://github.com/aduggleby/MinimalIdentityUI/blob/altcha/src/Areas/Identity/Pages/Account/Register.cshtml.cs#L123))
+- Change the HMAC Key to your own unique value ([Here](https://github.com/aduggleby/MinimalIdentityUI/blob/altcha/src/Areas/Identity/Pages/Account/Altcha.cs#L14))
