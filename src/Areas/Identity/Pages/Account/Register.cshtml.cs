@@ -45,11 +45,20 @@ namespace MinimalIdentityUI.Areas.Identity.Pages.Account
             _emailSender = emailSender;
         }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
-        [BindProperty]
+		/// <summary>
+		///     This captures the solved Altcha challenge
+		/// </summary>
+		[BindProperty]
+		[Required]
+		[DataType(DataType.Text)]
+		[Display(Name = "Protection")]
+		public string Altcha { get; set; }
+
+		/// <summary>
+		///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+		///     directly from your code. This API may change or be removed in future releases.
+		/// </summary>
+		[BindProperty]
         public InputModel Input { get; set; }
 
         /// <summary>
@@ -97,8 +106,10 @@ namespace MinimalIdentityUI.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-        }
 
+
+			
+		}
 
         public async Task OnGetAsync(string returnUrl = null)
         {
@@ -106,8 +117,14 @@ namespace MinimalIdentityUI.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+	
+		public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+			if (!global::Altcha.VerifyChallengeJson(Altcha))
+            {
+                ModelState.AddModelError("Altcha", "Required");
+            }
+
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
@@ -176,5 +193,7 @@ namespace MinimalIdentityUI.Areas.Identity.Pages.Account
             }
             return (IUserEmailStore<IdentityUser>)_userStore;
         }
+
+       
     }
 }
