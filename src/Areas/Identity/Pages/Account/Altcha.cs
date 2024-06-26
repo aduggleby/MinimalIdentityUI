@@ -1,7 +1,9 @@
-﻿using System.Security.Cryptography;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Web;
 
 public class Altcha
 {
@@ -26,13 +28,29 @@ public class Altcha
 		return (challenge, signature);
 	}
 
-	public static string CreateChallengeJson()
+	public static IActionResult CreateChallengeResult(TimeSpan? expiresIn = null)
 	{
-		var salt = GenerateRandomHexString(12);
+		return new ContentResult()
+		{
+			Content = CreateChallengeJson(expiresIn),
+			ContentType = "application/json"
+		};
+	}
+
+	public static string CreateChallengeJson(TimeSpan? expiresIn = null)
+	{
+		var salt = GenerateRandomHexString(12) +
+			"?expires=" + DateTimeOffset.Now.Add(expiresIn ?? TimeSpan.FromSeconds(60)).ToUnixTimeSeconds();
 		var number = GenerateRandomNumber(ALTCHA_NUM_RANGE[0], ALTCHA_NUM_RANGE[1]);
 		var altcha = CreateAltcha(salt, number);
 
-		return JsonSerializer.Serialize(new { algorithm = ALTCHA_JS_ALG, challenge = altcha.Challenge, salt, signature = altcha.Signature }); ;
+		return JsonSerializer.Serialize(new
+		{
+			algorithm = ALTCHA_JS_ALG,
+			challenge = altcha.Challenge,
+			salt,
+			signature = altcha.Signature,
+		});
 	}
 
 	public static bool VerifyChallengeJson(string payload)
@@ -42,12 +60,22 @@ public class Altcha
 			var challengeResponse = JsonSerializer.Deserialize<AltchaPayload>(Base64Decode(payload));
 			if (challengeResponse != null)
 			{
-				var altcha = CreateAltcha(challengeResponse.Salt, challengeResponse.Number);
+				var expires = HttpUtility.ParseQueryString(challengeResponse.Salt.Split('?').Last())["expires"];
+				if (!string.IsNullOrWhiteSpace(expires) &&
+					long.TryParse(expires, out var ts) &&
+					DateTimeOffset.FromUnixTimeSeconds(ts) >= DateTimeOffset.UtcNow)
+				{
+					var altcha = CreateAltcha(challengeResponse.Salt, challengeResponse.Number);
 
-				return
-					challengeResponse.Algorithm == ALTCHA_JS_ALG &&
-					challengeResponse.Challenge == altcha.Challenge &&
-					challengeResponse.Signature == altcha.Signature;
+					return
+						challengeResponse.Algorithm == ALTCHA_JS_ALG &&
+						challengeResponse.Challenge == altcha.Challenge &&
+						challengeResponse.Signature == altcha.Signature;
+				}
+				else
+				{
+					return false;
+				}
 			}
 		}
 		catch

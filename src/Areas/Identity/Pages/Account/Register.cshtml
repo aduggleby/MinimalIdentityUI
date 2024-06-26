@@ -102,7 +102,7 @@
 								   class="@Classes.TextInputLabel">@Html.DisplayNameFor(m => m.Altcha)</label>
 						</div>
 						<div class="relative">
-							<altcha-widget challengejson="@Altcha.CreateChallengeJson()" hidelogo="true" hidefooter="true"></altcha-widget>
+							<altcha-widget id="altcha" auto="onload" challengeurl="@Url.Page(null, "Altcha")" hidelogo="true" hidefooter="true"></altcha-widget>
 							<span asp-validation-for="Altcha" class="@Classes.ErrorMessage"></span>
 						</div>
 					</div>
@@ -112,8 +112,9 @@
 							class="@Classes.LargePrimaryButtonFullWidth">
 						Register
 					</button>
+
 				</div>
-			</form>
+			</form>	
 			<!-- End Form -->
 		</div>
 	</div>
@@ -121,5 +122,6 @@
 
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />
+	
 	<script async defer src="https://cdn.jsdelivr.net/gh/altcha-org/altcha@main/dist/altcha.min.js" type="module"></script>
 }
