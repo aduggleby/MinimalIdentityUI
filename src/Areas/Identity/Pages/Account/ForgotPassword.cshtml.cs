@@ -58,9 +58,9 @@ namespace MinimalIdentityUI.Areas.Identity.Pages.Account
             public string Email { get; set; }
         }
 
-		public async Task<IActionResult> OnGetAltcha() => global::Altcha.CreateChallengeResult();
+        public IActionResult OnGetAltcha() => global::Altcha.CreateChallengeActionResult();
 
-		public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!global::Altcha.VerifyChallengeJson(Altcha))
             {

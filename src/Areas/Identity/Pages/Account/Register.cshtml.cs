@@ -117,7 +117,7 @@ namespace MinimalIdentityUI.Areas.Identity.Pages.Account
 			ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 		}
 
-		public async Task<IActionResult> OnGetAltcha() => global::Altcha.CreateChallengeResult();
+		public IActionResult OnGetAltcha() => global::Altcha.CreateChallengeActionResult();
 
 		public async Task<IActionResult> OnPostAsync(string returnUrl = null)
 		{

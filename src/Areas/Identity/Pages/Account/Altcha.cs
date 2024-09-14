@@ -28,7 +28,7 @@ public class Altcha
 		return (challenge, signature);
 	}
 
-	public static IActionResult CreateChallengeResult(TimeSpan? expiresIn = null)
+	public static IActionResult CreateChallengeActionResult(TimeSpan? expiresIn = null)
 	{
 		return new ContentResult()
 		{
