@@ -258,7 +258,7 @@ to compile the CSS on build.
 
 ## Altcha
 
-To ease the implementation of a "Recaptcha-like" bot protection method the altcha branch of this project contains a [C# implementation of the Altcha challenge protocol](https://github.com/aduggleby/MinimalIdentityUI/blob/altcha/src/Areas/Identity/Pages/Account/Altcha.cs).
+To ease the implementation of a "Recaptcha-like" bot protection method this project contains a [C# implementation of the Altcha challenge protocol](https://github.com/aduggleby/MinimalIdentityUI/blob/altcha/src/Areas/Identity/Pages/Account/Altcha.cs).
 
 To use Altcha in an ASP.Net project:
 
