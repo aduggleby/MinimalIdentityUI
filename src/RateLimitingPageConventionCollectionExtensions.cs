@@ -36,26 +36,26 @@ using Humanizer.Localisation;
 /// </summary>
 public static class RateLimitingPageConventionCollectionExtensions
 {
-    public static PageConventionCollection RateLimitPage(
-		this PageConventionCollection conventions, 
-		string pageName, 
+	public static PageConventionCollection RateLimitPage(
+		this PageConventionCollection conventions,
+		string pageName,
 		string policy)
-    {
-        ArgumentNullException.ThrowIfNull(conventions);
+	{
+		ArgumentNullException.ThrowIfNull(conventions);
 
-        if (string.IsNullOrEmpty(pageName))
-        {
-            throw new ArgumentException(nameof(pageName));
-        }
+		if (string.IsNullOrEmpty(pageName))
+		{
+			throw new ArgumentException(nameof(pageName));
+		}
 
-        conventions.AddPageApplicationModelConvention(pageName, model =>
-        {
-            model.EndpointMetadata.Add(new EnableRateLimitingAttribute(policy));
-        });
-        return conventions;
-    }
+		conventions.AddPageApplicationModelConvention(pageName, model =>
+		{
+			model.EndpointMetadata.Add(new EnableRateLimitingAttribute(policy));
+		});
+		return conventions;
+	}
 
-    public static PageConventionCollection RateLimitAreaPage(
+	public static PageConventionCollection RateLimitAreaPage(
 		this PageConventionCollection conventions,
 		string areaName,
 		string pageName,
@@ -79,10 +79,10 @@ public static class RateLimitingPageConventionCollectionExtensions
 		});
 		return conventions;
 	}
-	
+
 	public static PageConventionCollection RateLimitFolder(
-		this PageConventionCollection conventions, 
-		string pageName, 
+		this PageConventionCollection conventions,
+		string pageName,
 		string policy)
 	{
 		ArgumentNullException.ThrowIfNull(conventions);
