@@ -22,7 +22,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 
 #region Rate Limiting Setup
 
-var useRedisRateLimiter = true;
+var useRedisRateLimiter = false;
 
 if (!useRedisRateLimiter)
 {
