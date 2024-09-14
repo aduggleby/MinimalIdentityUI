@@ -1,13 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using System.Diagnostics.CodeAnalysis;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.RateLimiting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Humanizer.Localisation;
 
 /// <summary>
 /// Allows setting rate limiting policy on pages, folders and areas similar 
