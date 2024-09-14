@@ -1,6 +1,10 @@
 This project has used styles from various projects:
-
 https://github.com/htmlstreamofficial/preline
 
 This project includes the qrcode.js library from:
 https://davidshimjs.github.io/qrcodejs/
+
+This project uses the Redis extensions for .NET rate limiting from:
+https://github.com/cristipufu/aspnetcore-redis-rate-limiting
+
+Security contributions were made by Marlin who identified a replay attack in a previous version.
