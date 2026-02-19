@@ -31,6 +31,7 @@ A general introduction to this project and what you get.
 
 ## History
 
+- 2026-02-19: Upgraded to Tailwind CSS v4 (`@tailwindcss/cli` + CSS `@source` config), removed `tailwind.config.js`, moved project to .NET 10, and updated NuGet/NPM dependencies to latest stable versions.
 - 2024-09-14: Implemented rate limiting (standard and redis backed) including page extensions for applying rate limiting policies to pages, folders and areas.
 - 2024-06-26: Changed Altcha implementation to use expiring challenges to avoid replay attacks
 - 2023-02-08: First version of Altcha implementation and usage in ASP.NET Identity UI.
@@ -53,7 +54,7 @@ A general introduction to this project and what you get.
 **Basic App Layout with Side Navbar, Page Title and Footer.**
 ![](images/layout.png)
 
-**Register page with Altcha (Recaptcha Alternative) - see _altcha_ branch**
+**Register page with Altcha (Recaptcha Alternative)**
 ![](images/register-with-altcha.png)
 
 <!-- TOC --><a name="dependencies"></a>
@@ -92,32 +93,13 @@ It's easiest to use MinimalIdentityUI if you are starting a new ASP.NET project.
 
 ### 2. Install TailwindCSS
 
-With this starting point you can now add Tailwind to your project. You will need a working node and npm installation on your development machine.
+With this starting point you can now add Tailwind to your project. You will need Node.js 20+ and npm on your development machine.
 
-Run these three commands in the directory of your web project:
+Run these commands in the directory of your web project:
 
 ```
 npm init
-npm install -D tailwindcss @tailwindcss/typography
-npx tailwindcss init
-```
-
-Then replace the `tailwind.config.js` with the following content (specifically the content and plugins section):
-
-```
-module.exports = {
-    content: [
-        "./Areas/**/*.{cs,cshtml,html,js}",
-        "./Pages/**/*.{cs,cshtml,html,js}",
-    ],
-    theme: {
-        extend: {},
-    },
-    variants: {
-        extend: {},
-    },
-    plugins: [require('@tailwindcss/typography')],
-}
+npm install -D tailwindcss @tailwindcss/cli @tailwindcss/typography
 ```
 
 Then replace the `package.json` with the following content (specifically the scripts section):
@@ -127,12 +109,13 @@ Then replace the `package.json` with the following content (specifically the scr
   "name": "your-project",
   "version": "1.0.0",
   "scripts": {
-    "tailwind": "npx tailwind -i ./wwwroot/css/site.css -o ./wwwroot/dist/all.css --watch",
-    "tailwind:build": "npx tailwind -i ./wwwroot/css/site.css -o ./wwwroot/dist/all.css --minify"
+    "tailwind": "npx @tailwindcss/cli -i ./wwwroot/css/site.css -o ./wwwroot/dist/all.css --watch",
+    "tailwind:build": "npx @tailwindcss/cli -i ./wwwroot/css/site.css -o ./wwwroot/dist/all.css --minify"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.10",
-    "tailwindcss": "^3.4.1"
+    "@tailwindcss/cli": "^4.1.17",
+    "@tailwindcss/typography": "^0.5.19",
+    "tailwindcss": "^4.1.17"
   }
 }
 
@@ -142,15 +125,18 @@ Then replace the `/wwwroot/css/site.css` file with the following content:
 
 ```
 /*! @import */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@source "../../Areas/**/*.{cs,cshtml,html,js}";
+@source "../../Pages/**/*.{cs,cshtml,html,js}";
+@plugin "@tailwindcss/typography";
 
 /* ASP.NET Validation fields set this when valid, so we can hide it */
 .field-validation-valid {
     display: none !important;
 }
 ```
+
+_Note: With Tailwind v4 this setup does not require a `tailwind.config.js` file._
 
 _It's recommended to use a .gitignore file that excludes the node_modules folder from your version control._
 
@@ -227,6 +213,10 @@ Contributing and technical details of the project.
 
 ## Contributing to MinimalIdentityUI
 
+Prerequisites:
+- .NET SDK 10
+- Node.js 20+
+
 To build tailwind locally and watch for changes in Pages and Areas execute in the root of the web project.
 
 ```
@@ -236,7 +226,7 @@ npm run tailwind
 
 The source file is `wwwroot\css\site.css` and the output file is `wwwroot\dist\all.css`.
 
-To use BrowserLink execute the following in the web directory.
+To run the app with hot reload execute the following in the web directory.
 
 ```
 dotnet watch
@@ -258,25 +248,25 @@ to compile the CSS on build.
 
 ## Altcha
 
-To ease the implementation of a "Recaptcha-like" bot protection method this project contains a [C# implementation of the Altcha challenge protocol](https://github.com/aduggleby/MinimalIdentityUI/blob/altcha/src/Areas/Identity/Pages/Account/Altcha.cs).
+To ease the implementation of a "Recaptcha-like" bot protection method this project contains a [C# implementation of the Altcha challenge protocol](https://github.com/aduggleby/MinimalIdentityUI/blob/main/src/Areas/Identity/Pages/Account/Altcha.cs).
 
 To use Altcha in an ASP.Net project:
 
-- Add the widget script to your page ([Example](https://github.com/aduggleby/MinimalIdentityUI/blob/altcha/src/Areas/Identity/Pages/Account/Register.cshtml#L124))
-- Add the widget web component to your form ([Example](https://github.com/aduggleby/MinimalIdentityUI/blob/altcha/src/Areas/Identity/Pages/Account/Register.cshtml#L105))
-- Add and bind a Altcha string parameter in the code-behind ([Example](https://github.com/aduggleby/MinimalIdentityUI/blob/altcha/src/Areas/Identity/Pages/Account/Register.cshtml.cs#L55))
-- Use the [Altcha class](https://github.com/aduggleby/MinimalIdentityUI/blob/altcha/src/Areas/Identity/Pages/Account/Altcha.cs) to generate and verify the challenge ([Example](https://github.com/aduggleby/MinimalIdentityUI/blob/altcha/src/Areas/Identity/Pages/Account/Register.cshtml.cs#L123))
-- Change the HMAC Key to your own unique value ([Here](https://github.com/aduggleby/MinimalIdentityUI/blob/altcha/src/Areas/Identity/Pages/Account/Altcha.cs#L14))
+- Add the widget script to your page ([Example](https://github.com/aduggleby/MinimalIdentityUI/blob/main/src/Areas/Identity/Pages/Account/Register.cshtml))
+- Add the widget web component to your form ([Example](https://github.com/aduggleby/MinimalIdentityUI/blob/main/src/Areas/Identity/Pages/Account/Register.cshtml))
+- Add and bind an Altcha string parameter in the code-behind ([Example](https://github.com/aduggleby/MinimalIdentityUI/blob/main/src/Areas/Identity/Pages/Account/Register.cshtml.cs))
+- Use the [Altcha class](https://github.com/aduggleby/MinimalIdentityUI/blob/main/src/Areas/Identity/Pages/Account/Altcha.cs) to generate and verify the challenge ([Example](https://github.com/aduggleby/MinimalIdentityUI/blob/main/src/Areas/Identity/Pages/Account/Register.cshtml.cs))
+- Change the HMAC key to your own unique value ([Here](https://github.com/aduggleby/MinimalIdentityUI/blob/main/src/Areas/Identity/Pages/Account/Altcha.cs))
 
 <!-- TOC --><a name="ratelimiting"></a>
 
 ## Rate Limiting
 
-The project provides two rate limiting setups depending on your use case. The standard use case uses the built-in rate limiting in ASP.NET 8, the other extends on that using a Redis backplane for the rate limiting middleware which lets you use the rate limiting in a server cluster (e.g. Azure App Service Plan).
+The project provides two rate limiting setups depending on your use case. The standard use case uses the built-in rate limiting in ASP.NET, the other extends on that using a Redis backplane for the rate limiting middleware which lets you use the rate limiting in a server cluster (e.g. Azure App Service Plan).
 
-Switch between the two versions in [Program.cs](https://github.com/aduggleby/MinimalIdentityUI/blob/9c06a915ae3ac8142f984019e427a6ce198a528b/src/Program.cs#L25) by setting the `useRedisRateLimiter` variable.
+Switch between the two versions in [Program.cs](https://github.com/aduggleby/MinimalIdentityUI/blob/main/src/Program.cs) by setting the `useRedisRateLimiter` variable.
 
-If Redis is used you must set the `redis` connection string in the appSettings.json.
+If Redis is used you must set the `Redis` connection string in `appsettings.json`.
 
 The default response code for ASP.NET rate limiting is 503, which was changed to 429 by configuration to better align with standard practices on the web.
 
@@ -290,7 +280,7 @@ Note: The Altcha challenge is reloaded after the page is loaded, so each request
 
 If using a reverse proxy you must use `app.UseForwardedHeaders();` to overwrite the RemoteIPAddress used in the policy with the forwarded IP address from the reverse proxy.
 
-An [extension method](https://github.com/aduggleby/MinimalIdentityUI/blob/main/src/RateLimitingPageConventionCollectionExtensions.cs) was implemented to mimick the page conventions ASP.NET provides for Authorization but for applying rate limiting policies instead. This allows for easy configuration of the policies on the identity are pages.
+An [extension method](https://github.com/aduggleby/MinimalIdentityUI/blob/main/src/RateLimitingPageConventionCollectionExtensions.cs) was implemented to mimic the page conventions ASP.NET provides for Authorization but for applying rate limiting policies instead. This allows for easy configuration of policies on Identity area pages.
 
 ```
 var razorPageBuild = builder.Services.AddRazorPages(options =>

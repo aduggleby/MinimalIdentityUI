@@ -1,7 +1,8 @@
 /*! @import */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@source "../../Areas/**/*.{cs,cshtml,html,js}";
+@source "../../Pages/**/*.{cs,cshtml,html,js}";
+@plugin "@tailwindcss/typography";
 
 /* ASP.NET Validation fields set this when valid, so we can hide it */
 .field-validation-valid {

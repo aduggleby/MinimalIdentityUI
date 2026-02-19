@@ -4,14 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "tailwind": "npx tailwind -i ./wwwroot/css/site.css -o ./wwwroot/dist/all.css --watch",
-    "tailwind:build": "npx tailwind -i ./wwwroot/css/site.css -o ./wwwroot/dist/all.css --minify"
+    "tailwind": "npx @tailwindcss/cli -i ./wwwroot/css/site.css -o ./wwwroot/dist/all.css --watch",
+    "tailwind:build": "npx @tailwindcss/cli -i ./wwwroot/css/site.css -o ./wwwroot/dist/all.css --minify"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.10",
-    "tailwindcss": "^3.4.1"
+    "@tailwindcss/cli": "^4.1.17",
+    "@tailwindcss/typography": "^0.5.19",
+    "tailwindcss": "^4.1.17"
   }
 }

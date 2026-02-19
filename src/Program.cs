@@ -36,22 +36,24 @@ if (!useRedisRateLimiter)
 			RateLimitPartition.GetSlidingWindowLimiter(
 				// Partition key is the IP address of the client (will be overwritten by UseForwardedHeaders below if proxied)
 				partitionKey: $"{RateLimiterPolicy.LoginAndRegister}-{httpContext.Connection.RemoteIpAddress?.ToString()}",
-				factory: _ => new SlidingWindowRateLimiterOptions
-				{
-					PermitLimit = 10,
-					Window = TimeSpan.FromMinutes(1)
-				}));
+					factory: _ => new SlidingWindowRateLimiterOptions
+					{
+						PermitLimit = 10,
+						Window = TimeSpan.FromMinutes(1),
+						SegmentsPerWindow = 4
+					}));
 
 		// Policy for anonymous identity endpoints: rate limited to 5 requests per minute
 		options.AddPolicy(RateLimiterPolicy.ForgotPassword, httpContext =>
 			RateLimitPartition.GetSlidingWindowLimiter(
 				// Partition key is the IP address of the client (will be overwritten by UseForwardedHeaders below if proxied)
 				partitionKey: $"{RateLimiterPolicy.ForgotPassword}-{httpContext.Connection.RemoteIpAddress?.ToString()}",
-				factory: _ => new SlidingWindowRateLimiterOptions
-				{
-					PermitLimit = 5,
-					Window = TimeSpan.FromMinutes(1)
-				}));
+					factory: _ => new SlidingWindowRateLimiterOptions
+					{
+						PermitLimit = 5,
+						Window = TimeSpan.FromMinutes(1),
+						SegmentsPerWindow = 4
+					}));
 
 		// Policy for all other endpoints: rate limited to 100 requests per minute
 		options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
